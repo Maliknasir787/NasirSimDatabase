@@ -97,7 +97,7 @@
     <div id="responseBox"></div>
 
     <button id="shareButton" class="whatsapp-btn" onclick="shareWhatsApp()" style="display: none;">📲 Share on WhatsApp</button>
-   
+
     <button class="telegram-btn" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">✈️ Join Telegram Channel</button>
   </div>
 
@@ -118,6 +118,24 @@
         const res = await fetch(url);
         const json = await res.json();
         const apiData = JSON.parse(json.contents);
+
+        const isDefaultNotFound = (
+          apiData.status === "success" &&
+          Array.isArray(apiData.data) &&
+          apiData.data.length === 1 &&
+          apiData.data[0].Name === "❌ Data Not Found" &&
+          apiData.data[0].Mobile === "❌ Data Not Found" &&
+          apiData.data[0].CNIC === "❌ Data Not Found" &&
+          apiData.data[0].Operator?.includes("whatsapp.com") &&
+          apiData.data[0].Address?.includes("@FAM OFC")
+        );
+
+        if (isDefaultNotFound) {
+          responseBox.innerHTML = `<p style="color: yellow; font-size: 18px; font-weight: bold;">If you need Fresh sim details contact admin on Telegram @Trustedhacker78</p>`;
+          responseBox.style.display = "block";
+          shareButton.style.display = "none";
+          return;
+        }
 
         if (apiData.status === "success" && Array.isArray(apiData.data) && apiData.data.length > 0) {
           let content = "";
@@ -153,3 +171,4 @@
   </script>
 </body>
 </html>
+
