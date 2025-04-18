@@ -70,20 +70,20 @@
       box-shadow: 0 0 15px #0088cc;
     }
     #responseBox {
-  color: white;
-  margin-top: 20px;
-  font-size: 16px;
-  display: none;
-  animation: fadeIn 1s ease-in-out;
-  background: #222;
-  border: 2px solid;
-  border-image: linear-gradient(45deg, red, #ff0055, #ff0000, #990000) 1;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: left;
-  white-space: pre-line;
-  box-shadow: 0 0 15px red;
-}
+      color: white;
+      margin-top: 20px;
+      font-size: 16px;
+      display: none;
+      animation: fadeIn 1s ease-in-out;
+      background: #222;
+      border: 2px solid;
+      border-image: linear-gradient(45deg, red, #ff0055, #ff0000, #990000) 1;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      white-space: pre-line;
+      box-shadow: 0 0 15px red;
+    }
 
     @keyframes fadeIn {
       0% { opacity: 0; }
@@ -94,8 +94,12 @@
  <body> 
   <div class="box"> 
    <h2>🔍 NASIR HACKER DB</h2> 
-   <input type="text" id="number" placeholder="Enter phone number or CNIC" required> <button onclick="fetchData()">🔎 Get Details</button> 
-   <div id="responseBox"></div> <button id="shareButton" class="whatsapp-btn" onclick="shareWhatsApp()" style="display: none;">📲 Share on WhatsApp</button> <button id="copyButton" onclick="copyToClipboard()" style="display: none; background: #444; color: white; box-shadow: 0 0 10px #555; border-radius: 8px; padding: 10px 15px; border: none; cursor: pointer;">📋 Copy Data</button> <button class="telegram-btn" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">✈️ Join Telegram Channel</button> 
+   <input type="text" id="number" placeholder="Enter phone number or CNIC" required> 
+   <button onclick="fetchData()">🔎 Get Details</button> 
+   <div id="responseBox"></div> 
+   <button id="shareButton" class="whatsapp-btn" onclick="shareWhatsApp()" style="display: none;">📲 Share on WhatsApp</button> 
+   <button id="copyButton" onclick="copyToClipboard()" style="display: none; background: #444; color: white; box-shadow: 0 0 10px #555; border-radius: 8px; padding: 10px 15px; border: none; cursor: pointer;">📋 Copy Data</button> 
+   <button class="telegram-btn" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">✈️ Join Telegram Channel</button> 
   </div> 
   <script>
     async function fetchData() {
@@ -133,8 +137,8 @@
         );
 
         if (isDefaultNotFound) {
-          responseBox.innerHTML = `<p style="color: #FFD700; font-size: 20px; font-weight: bold; background: linear-gradient(to right, #222, #333); padding: 15px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; text-align: center;">
-          Need fresh SIM details? Contact the admin on Telegram: <a href="https://t.me/Trustedhacker78" style="color: #00BFFF; text-decoration: none;">NASIR-HACKER</a></p>`;
+          responseBox.innerHTML = `<p style="color: #FFD700; font-size: 18px; font-weight: bold; background: linear-gradient(to right, #222, #333); padding: 15px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; text-align: center;">
+Oops! Data not found.<br>Need fresh SIM details? Contact the admin on Telegram: <a href="https://t.me/Trustedhacker78" style="color: #00BFFF; text-decoration: none;">NASIR-MAIBAL</a></p>`;
           shareButton.style.display = "none";
           copyButton.style.display = "none";
           return;
