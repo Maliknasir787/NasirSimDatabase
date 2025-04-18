@@ -1,106 +1,135 @@
-<!doctype html>
-<html lang="en"> 
- <head> 
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>SIM Data Lookup</title> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIM Data Lookup</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      background: #000;
-      font-family: Arial, sans-serif;
+      padding: 20px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      color: #fff;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
-      animation: fadeIn 1s ease-in-out;
+      align-items: flex-start;
+      overflow-y: auto;
     }
+
     .box {
-      background: #111;
-      border: 2px solid red;
-      box-shadow: 0 0 25px red;
-      padding: 30px 20px;
-      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 35px 25px;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       text-align: center;
-      animation: fadeIn 1s ease-in-out;
     }
+
     .box h2 {
-      color: red;
-      font-size: 24px;
-      margin-bottom: 20px;
+      font-size: 26px;
+      margin-bottom: 25px;
+      color: #ff416c;
+      background: -webkit-linear-gradient(left, #ff416c, #ff4b2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
+
     .box input {
       width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
+      padding: 14px;
       margin-bottom: 20px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
       font-size: 16px;
-      background: #333;
-      color: white;
-      box-shadow: inset 0 0 5px red;
+      outline: none;
     }
+
     .box button {
       width: 100%;
       padding: 12px;
-      border: none;
-      border-radius: 8px;
       margin: 10px 0;
+      border: none;
+      border-radius: 10px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      color: white;
-      background: linear-gradient(90deg, #c00000, #ff0000);
-      box-shadow: 0 0 15px red;
-      transition: 0.3s;
+      color: #fff;
+      transition: all 0.3s ease-in-out;
     }
+
     .box button:hover {
       transform: scale(1.05);
-      background: linear-gradient(90deg, #ff0000, #c00000);
     }
+
+    .primary-btn {
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      box-shadow: 0 0 10px #ff416c;
+    }
+
     .whatsapp-btn {
       background: linear-gradient(90deg, #25D366, #128C7E);
-      box-shadow: 0 0 15px #25D366;
+      box-shadow: 0 0 10px #25D366;
     }
+
     .telegram-btn {
       background: linear-gradient(90deg, #0088cc, #005577);
-      box-shadow: 0 0 15px #0088cc;
+      box-shadow: 0 0 10px #0088cc;
     }
+
+    .copy-btn {
+      background: linear-gradient(90deg, #666, #444);
+      box-shadow: 0 0 10px #777;
+    }
+
     #responseBox {
-      color: white;
-      margin-top: 20px;
-      font-size: 16px;
       display: none;
-      animation: fadeIn 1s ease-in-out;
-      background: #222;
-      border: 2px solid;
-      border-image: linear-gradient(45deg, red, #ff0055, #ff0000, #990000) 1;
-      padding: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      margin-top: 20px;
       border-radius: 10px;
       text-align: left;
       white-space: pre-line;
-      box-shadow: 0 0 15px red;
+      font-size: 15px;
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+      animation: fadeIn 1s ease-in-out;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    a {
+      color: #00bfff;
+      text-decoration: none;
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-  </style> 
- </head> 
- <body> 
-  <div class="box"> 
-   <h2>🔍 NASIR HACKER DB</h2> 
-   <input type="text" id="number" placeholder="Enter phone number or CNIC" required> 
-   <button onclick="fetchData()">🔎 Get Details</button> 
-   <div id="responseBox"></div> 
-   <button id="shareButton" class="whatsapp-btn" onclick="shareWhatsApp()" style="display: none;">📲 Share on WhatsApp</button> 
-   <button id="copyButton" onclick="copyToClipboard()" style="display: none; background: #444; color: white; box-shadow: 0 0 10px #555; border-radius: 8px; padding: 10px 15px; border: none; cursor: pointer;">📋 Copy Data</button> 
-   <button class="telegram-btn" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">✈️ Join Telegram Channel</button> 
-  </div> 
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>NASIR HACKER DB</h2>
+    <input type="text" id="number" placeholder="Enter phone number or CNIC" required />
+    <button class="primary-btn" onclick="fetchData()">🔎 Get Details</button>
+    <div id="responseBox"></div>
+    <button id="shareButton" class="whatsapp-btn" onclick="shareWhatsApp()" style="display: none;">📲 Share on WhatsApp</button>
+    <button id="copyButton" class="copy-btn" onclick="copyToClipboard()" style="display: none;">📋 Copy Data</button>
+    <button class="telegram-btn" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">✈️ Join Telegram Channel</button>
+  </div>
+
   <script>
     async function fetchData() {
       const number = document.getElementById("number").value.trim();
@@ -129,16 +158,13 @@
           apiData.status === "success" &&
           Array.isArray(apiData.data) &&
           apiData.data.length === 1 &&
-          apiData.data[0].Name === "❌ Data Not Found" &&
-          apiData.data[0].Mobile === "❌ Data Not Found" &&
-          apiData.data[0].CNIC === "❌ Data Not Found" &&
-          apiData.data[0].Operator?.includes("whatsapp.com") &&
-          apiData.data[0].Address?.includes("@FAM OFC")
+          apiData.data[0].Name === "❌ Data Not Found"
         );
 
         if (isDefaultNotFound) {
-          responseBox.innerHTML = `<p style="color: #FFD700; font-size: 18px; font-weight: bold; background: linear-gradient(to right, #222, #333); padding: 15px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; text-align: center;">
-Oops! Data not found.<br>Need fresh SIM details? Contact the admin on Telegram: <a href="https://t.me/Trustedhacker78" style="color: #00BFFF; text-decoration: none;">NASIR-MAIBAL</a></p>`;
+          responseBox.innerHTML = `<p style="color: #FFD700; font-size: 16px; font-weight: bold;">
+          ❌ Oops! Data not found.<br><br>Need fresh SIM details? Contact the admin:<br>
+          <a href="https://t.me/Trustedhacker78" target="_blank">NASIR-MAIBAL</a></p>`;
           shareButton.style.display = "none";
           copyButton.style.display = "none";
           return;
@@ -158,12 +184,12 @@ Oops! Data not found.<br>Need fresh SIM details? Contact the admin on Telegram: 
           shareButton.style.display = "inline-block";
           copyButton.style.display = "inline-block";
         } else {
-          responseBox.innerHTML = `<p style="color: yellow; font-size: 18px; font-weight: bold;">Data Not Found</p>`;
+          responseBox.innerHTML = `<p style="color: yellow; font-size: 16px; font-weight: bold;">Data Not Found</p>`;
           shareButton.style.display = "none";
           copyButton.style.display = "none";
         }
       } catch (e) {
-        responseBox.innerHTML = `<p style="color: red; font-size: 18px; font-weight: bold;">Error fetching data. Please try again later.</p>`;
+        responseBox.innerHTML = `<p style="color: red; font-size: 16px; font-weight: bold;">Error fetching data. Please try again later.</p>`;
         shareButton.style.display = "none";
         copyButton.style.display = "none";
       }
@@ -172,18 +198,15 @@ Oops! Data not found.<br>Need fresh SIM details? Contact the admin on Telegram: 
     function shareWhatsApp() {
       const responseBox = document.getElementById("responseBox");
       const text = encodeURIComponent(responseBox.innerText);
-      const url = `https://wa.me/?text=${text}`;
-      window.open(url, '_blank');
+      window.open(`https://wa.me/?text=${text}`, '_blank');
     }
 
     function copyToClipboard() {
       const responseText = document.getElementById("responseBox").innerText;
-      navigator.clipboard.writeText(responseText).then(() => {
-        alert("Copied to clipboard!");
-      }).catch(err => {
-        alert("Failed to copy data.");
-      });
+      navigator.clipboard.writeText(responseText)
+        .then(() => alert("Copied to clipboard!"))
+        .catch(() => alert("Failed to copy data."));
     }
-  </script> 
- </body>
+  </script>
+</body>
 </html>
