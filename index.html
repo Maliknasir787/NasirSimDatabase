@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SIM Data Lookup</title>
+<!doctype html>
+<html lang="en"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Pak Sim Details</title> 
   <style>
     * {
       box-sizing: border-box;
@@ -20,9 +20,23 @@
       justify-content: center;
       align-items: flex-start;
       overflow-y: auto;
+      position: relative;
+    }
+
+    #matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      opacity: 0.2;
+      pointer-events: none;
     }
 
     .box {
+      position: relative;
+      z-index: 1;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 20px;
       padding: 35px 25px;
@@ -117,19 +131,111 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
-  </style>
-</head>
-<body>
-  <div class="box">
-    <h2>NASIR HACKER DB</h2>
-    <input type="text" id="number" placeholder="Enter phone number or CNIC" required />
-    <button class="primary-btn" onclick="fetchData()">🔎 Get Details</button>
-    <div id="responseBox"></div>
-    <button id="shareButton" class="whatsapp-btn" onclick="shareWhatsApp()" style="display: none;">📲 Share on WhatsApp</button>
-    <button id="copyButton" class="copy-btn" onclick="copyToClipboard()" style="display: none;">📋 Copy Data</button>
-    <button class="telegram-btn" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">✈️ Join Telegram Channel</button>
+
+    #popupOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #popupOverlay div {
+      background: #1c1c1c;
+      padding: 30px 20px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 300px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    }
+
+    #popupOverlay h3 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    #popupOverlay button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #popupOverlay .join-btn {
+      background: #0088cc;
+    }
+
+    #popupOverlay .cancel-btn {
+      background: #555;
+    }
+  </style> 
+</head> 
+<body> 
+  <canvas id="matrixCanvas"></canvas> 
+  <div class="box"> 
+    <h2>NASIR HACKER DB</h2> 
+    <input type="text" id="number" placeholder="Enter phone number or CNIC" required> 
+    <button class="primary-btn" onclick="fetchData()">🔎 Get Details</button> 
+    <div id="responseBox"></div> 
+    <button id="shareButton" class="whatsapp-btn" onclick="shareWhatsApp()" style="display: none;">📲 Share on WhatsApp</button> 
+    <button id="copyButton" class="copy-btn" onclick="copyToClipboard()" style="display: none;">📋 Copy Data</button> 
+    <button class="telegram-btn" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">✈️ Join Telegram Channel</button> 
   </div>
 
+  <!-- Popup Overlay -->
+  <div id="popupOverlay">
+    <div>
+      <h3>Join our Telegram Channel?</h3>
+      <button class="join-btn" onclick="joinTelegram()">Join Telegram</button>
+      <button class="cancel-btn" onclick="closePopup()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Matrix Background -->
+  <script>
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    const letters = "01";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({length: columns}, () => 1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#00ff99";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 35);
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+  <!-- Main Script -->
   <script>
     async function fetchData() {
       const number = document.getElementById("number").value.trim();
@@ -163,10 +269,8 @@
 
         if (isDefaultNotFound) {
           responseBox.innerHTML = `<p style="color: #FFD700; font-size: 16px; font-weight: bold;">
-          ❌ Oops! Data not found.<br><br>Need fresh SIM details? Contact the admin:<br>
-          <a href="https://t.me/Trustedhacker78" target="_blank">NASIR-MAIBAL</a></p>`;
-          shareButton.style.display = "none";
-          copyButton.style.display = "none";
+            ❌ Oops! Data not found.<br><br>Need fresh SIM details? Contact the admin:<br>
+            <a href="https://t.me/Trustedhacker78" target="_blank">NASIR-MAIBAL</a></p>`;
           return;
         }
 
@@ -185,13 +289,9 @@
           copyButton.style.display = "inline-block";
         } else {
           responseBox.innerHTML = `<p style="color: yellow; font-size: 16px; font-weight: bold;">Data Not Found</p>`;
-          shareButton.style.display = "none";
-          copyButton.style.display = "none";
         }
       } catch (e) {
         responseBox.innerHTML = `<p style="color: red; font-size: 16px; font-weight: bold;">Error fetching data. Please try again later.</p>`;
-        shareButton.style.display = "none";
-        copyButton.style.display = "none";
       }
     }
 
@@ -207,6 +307,20 @@
         .then(() => alert("Copied to clipboard!"))
         .catch(() => alert("Failed to copy data."));
     }
-  </script>
+
+    function joinTelegram() {
+      window.open("https://t.me/trustedhacker079", "_blank");
+      closePopup();
+    }
+
+    function closePopup() {
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+
+    // Show popup after 100 seconds
+    setTimeout(() => {
+      document.getElementById("popupOverlay").style.display = "flex";
+    }, 10000);
+  </script> 
 </body>
 </html>
